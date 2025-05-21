@@ -17,6 +17,7 @@ phases:
     commands:
       - echo Running tests...
       - dotnet test --no-build --verbosity normal
+      - echo "Tests completed successfully"
 
 artifacts:
   files:
