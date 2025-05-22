@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.102
 
@@ -38,5 +38,6 @@ jobs:
         uses: dotnet/actions@v1
         with:
           command: test
+          arguments: --no-build
           projects: 'src/tests/*.csproj'
 
