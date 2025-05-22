@@ -23,21 +23,12 @@ jobs:
           dotnet-version: 7.0.102
 
       - name: Restore NuGet packages
-        uses: dotnet/actions@v1
-        with:
-          command: restore
-          projects: '**/*.csproj'
+        run: dotnet restore
 
-      - name: Build all projects
-        uses: dotnet/actions@v1
-        with:
-          command: build
-          projects: '**/*.csproj'
+      - name: Build the solution
+        run: dotnet build
 
       - name: Run tests
-        uses: dotnet/actions@v1
-        with:
-          command: test
-          arguments: --no-build
-          projects: 'src/tests/*.csproj'
+        run: dotnet test --no-build --verbosity normal
+
 
