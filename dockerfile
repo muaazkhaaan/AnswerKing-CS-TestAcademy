@@ -15,6 +15,3 @@ WORKDIR /app/out
 
 # Start the application
 ENTRYPOINT ["dotnet", "Answer.King.Api.dll"]
-
-# Expose ports for HTTP and HTTPS
-EXPOSE 80 443
