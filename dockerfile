@@ -1,19 +1,20 @@
-# syntax=docker/dockerfile:1
-FROM mcr.microsoft.com/dotnet/sdk:7.0 as build
+# Use the .NET SDK image (includes runtime)
+FROM mcr.microsoft.com/dotnet/sdk:7.0
 
 WORKDIR /app
 
+# Copy all project files
 COPY . .
 
-RUN dotnet restore && dotnet publish src/Answer.King.Api/Answer.King.Api.csproj -c Release -o out
+# Restore and publish the app
+RUN dotnet restore \
+ && dotnet publish src/Answer.King.Api/Answer.King.Api.csproj -c Release -o out
 
-#build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+# Set working directory to the output folder
+WORKDIR /app/out
 
-WORKDIR /app
-
-COPY --from=build /app/out .
-
+# Start the application
 ENTRYPOINT ["dotnet", "Answer.King.Api.dll"]
 
+# Expose ports for HTTP and HTTPS
 EXPOSE 80 443
