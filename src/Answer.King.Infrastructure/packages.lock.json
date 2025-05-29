@@ -25,6 +25,7 @@
       "answer.king.domain": {
         "type": "Project"
       }
-    }
+    },
+    "net7.0/linux-x64": {}
   }
 }

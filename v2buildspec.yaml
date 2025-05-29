@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 409973623162.dkr.ecr.eu-west-2.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t answerking:$CODEBUILD_RESOLVED_SOURCE_VERSION .
+      - docker tag answerking:$CODEBUILD_RESOLVED_SOURCE_VERSION 409973623162.dkr.ecr.eu-west-2.amazonaws.com/answerking:$CODEBUILD_RESOLVED_SOURCE_VERSION
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 409973623162.dkr.ecr.eu-west-2.amazonaws.com/answerking:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
